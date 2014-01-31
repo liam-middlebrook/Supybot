@@ -233,8 +233,8 @@ class Karma(callbacks.Plugin):
             irc.noReply()
 
     def _doKarma(self, irc, channel, thing):
-        assert thing[-2:] in ('++', '--')
-        if thing.endswith('++'):
+        assert (thing[-2:] in ('++', '--') or thing[:2] in ('++', '--'))
+        if thing.endswith('++') or thing.beginswith('++',0,2):
             thing = thing[:-2]
             if ircutils.strEqual(thing, irc.msg.nick) and \
                not self.registryValue('allowSelfRating', channel):
